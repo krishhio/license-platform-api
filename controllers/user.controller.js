@@ -87,25 +87,31 @@ const deleteUserById = async (req, res) => {
 // Cambiar contraseña desde el perfil
 const changePassword = async (req, res) => {
   try {
+    const { oldPassword, newPassword } = req.body;
     const userId = req.user.id;
-    const { currentPassword, newPassword } = req.body;
-
-    if (!currentPassword || !newPassword) {
-      return res.status(400).json({ message: 'Faltan campos requeridos' });
-    }
 
     const user = await findUserById(userId);
-    const valid = await bcrypt.compare(currentPassword, user.password);
 
-    if (!valid) {
-      return res.status(401).json({ message: 'La contraseña actual no es válida' });
+    if (!user || !user.password_hash) {
+      console.error('Usuario no encontrado o sin contraseña')
+      return res.status(400).json({ message: 'Usuario no encontrado o sin contraseña' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password_hash);
+    console.info()
+
+    if (!isMatch) {
+      console.error('Contraseña actual incorrecta');
+      return res.status(401).json({ message: 'Contraseña actual incorrecta' });
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await updateUserPassword(userId, hashedPassword);
+    console.log('Contraseña actualizada correctamente')
 
     res.json({ message: 'Contraseña actualizada correctamente' });
   } catch (err) {
+    console.log('Error al cambiar contraseña',err.message);
     res.status(500).json({ message: 'Error al cambiar contraseña', error: err.message });
   }
 };

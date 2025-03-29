@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 // Buscar usuario por ID
 const findUserById = async (id) => {
-  const [rows] = await db.query('SELECT id, username, email, role FROM user WHERE id = ?', [id]);
+  const [rows] = await db.query('SELECT id, username, email, role, password_hash FROM user WHERE id = ?', [id]);
   return rows[0];
 };
 
@@ -54,7 +54,10 @@ const deleteUser = async (id) => {
 
 // Actualizar Password de Usuario
 async function updateUserPassword(id, hashedPassword) {
-  const [result] = await pool.query('UPDATE user SET password = ? WHERE id = ?', [hashedPassword, id]);
+  const [result] = await db.query('UPDATE user SET password_hash = ? WHERE id = ?', [
+    hashedPassword,
+    id
+  ]);
   return result;
 }
 

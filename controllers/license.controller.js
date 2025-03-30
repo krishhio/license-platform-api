@@ -1,140 +1,110 @@
 const {
   getAllLicenses,
-  getLicenseById,
-  createLicense,
-  updateLicense,
-  deleteLicense,
   findLicensesByHardwareOrLicenseKey,
-  validateHardwareAndInvoice
+  createLicense,
+  assignProductsToLicense,
+  assignHardwareToLicense
 } = require('../models/license.model');
 
 // Obtener todas las licencias
 const getLicenses = async (req, res) => {
   try {
     const licenses = await getAllLicenses();
-    console.info("Obteniendo todas las licencias");
+    console.info("Obteniendo Licencias: ",licenses);
     res.json(licenses);
   } catch (err) {
+    console.error('Error al obtener licencias', err.message)
     res.status(500).json({ message: 'Error al obtener licencias', error: err.message });
   }
 };
 
-// Obtener una licencia por ID
-const getLicense = async (req, res) => {
+// Buscar por hardware_code o license_key
+const searchLicenses = async (req, res) => {
   try {
-    const { id } = req.params;
-    const license = await getLicenseById(id);
-    console.info("Obteniendo  la licencias con el id: ",id);
-
-    if (!license) {
-      console.error('Licencia no encontrada con id: ',id)
-      return res.status(404).json({ message: 'Licencia no encontrada' });
+    const { hardware_code, license_key } = req.query;
+    if (!hardware_code && !license_key) {
+      console.error('Debes proporcionar hardware_code o license_key');
+      return res.status(400).json({ message: 'Debes proporcionar hardware_code o license_key' });
     }
 
-    res.json(license);
+    const results = await findLicensesByHardwareOrLicenseKey({ hardware_code, license_key });
+    console.info('Licencias Encontrada ', results)
+    res.json(results);
   } catch (err) {
-    console.error('Error al obtener licencia', err.message);
-    res.status(500).json({ message: 'Error al obtener licencia', error: err.message });
+    console.error('Error al buscar licencias', err.message);
+    res.status(500).json({ message: 'Error al buscar licencias', error: err.message });
   }
 };
 
-// Crear una nueva licencia
+// Crear nueva licencia
 const createNewLicense = async (req, res) => {
   try {
-    const { license_key, hardware_code_id, invoice_id, expiry_date } = req.body;
+    const {
+      license_key,
+      invoice_id,
+      type = 'demo',
+      product_ids = [],
+      hardware_codes = []
+    } = req.body;
 
-    if (!license_key || !hardware_code_id || !invoice_id || !expiry_date) {
-      console.error('Todos los campos son obligatorios');
-      return res.status(400).json({ message: 'Todos los campos son obligatorios' });
-    }
+    const validTypes = ['paid', 'demo', 'internal'];
+    const normalizedType = (type || '').toLowerCase();
 
-    const isValid = await validateHardwareAndInvoice(hardware_code_id, invoice_id);
-    if (!isValid) {
-      console.error('El código de hardware o la factura no son válidos o no tienen productos asociados');
+    console.log('➡️ Datos recibidos:', req.body);
+
+    if (!license_key || !normalizedType) {
+      console.warn('⚠️ Faltan license_key o type');
       return res.status(400).json({
-        message: 'El código de hardware o la factura no son válidos o no tienen productos asociados'
+        message: 'Faltan campos obligatorios (license_key, type)'
       });
     }
 
-    const id = await createLicense({ license_key, hardware_code_id, invoice_id, expiry_date });
-    res.status(201).json({ message: 'Licencia creada correctamente', id });
-  } catch (err) {
-    res.status(500).json({ message: 'Error al crear licencia', error: err.message });
-  }
-};
+    if (!validTypes.includes(normalizedType)) {
+      console.warn('❌ Tipo de licencia no válido:', normalizedType);
+      return res.status(400).json({
+        message: `Tipo de licencia inválido. Los permitidos son: ${validTypes.join(', ')}`
+      });
+    }
 
-// Actualizar licencia
-const updateExistingLicense = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { license_key, hardware_code_id, invoice_id, expiry_date } = req.body;
-    console.info("id de licencia a actualizar: ", id);
-    console.info("license_key: ", license_key);
-    console.info("hardware_code_id: ",hardware_code_id);
-    console.info("invoice_id: ",invoice_id);
-    console.info("expiry_date: ",expiry_date);
+    if (normalizedType === 'paid' && !invoice_id) {
+      console.warn('❌ Tipo "paid" pero falta invoice_id');
+      return res.status(400).json({
+        message: 'Las licencias pagadas requieren una factura (invoice_id)'
+      });
+    }
 
-    const updated = await updateLicense(id, {
+    console.log('✅ Validaciones superadas, creando licencia...');
+
+    const licenseId = await createLicense({
       license_key,
-      hardware_code_id,
       invoice_id,
-      expiry_date
+      type: normalizedType
     });
 
-    if (!updated) {
-      console.error('No se pudo actualizar la licencia con id: ',id)
-      return res.status(404).json({ message: 'No se pudo actualizar la licencia' });
-    }
+    console.log('✅ Licencia creada con ID:', licenseId);
 
-    res.json({ message: 'Licencia actualizada correctamente' });
+    await assignProductsToLicense(licenseId, product_ids);
+    console.log('📦 Productos asignados:', product_ids);
+
+    await assignHardwareToLicense(licenseId, hardware_codes);
+    console.log('🔐 Códigos de hardware asignados:', hardware_codes);
+
+    res.status(201).json({
+      message: 'Licencia creada exitosamente',
+      license_id: licenseId
+    });
+
   } catch (err) {
-    console.error('Error al actualizar licencia', err.message);
-    res.status(500).json({ message: 'Error al actualizar licencia', error: err.message });
-  }
-};
-
-// Eliminar licencia
-const deleteExistingLicense = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const deleted = await deleteLicense(id);
-    if (!deleted) {
-      console.error('No se pudo eliminar la licencia con id: ',id)
-      return res.status(404).json({ message: 'Licencia no encontrada para eliminar' });
-    }
-
-    res.json({ message: 'Licencia eliminada correctamente' });
-  } catch (err) {
-    console.error('Error al eliminar licencia ',err.message)
-    res.status(500).json({ message: 'Error al eliminar licencia', error: err.message });
-  }
-};
-
-// Buscar por license_key o hardware_code
-const searchLicense = async (req, res) => {
-  try {
-    const { license_key, hardware_code } = req.query;
-
-    if (!license_key && !hardware_code) {
-      console.error('Debe proporcionar license_key o hardware_code');
-      return res.status(400).json({ message: 'Debe proporcionar license_key o hardware_code' });
-    }
-
-    const result = await findLicensesByHardwareOrLicenseKey(license_key, hardware_code);
-    console.info('Licencia encontrada ',license_key );
-    console.info('Licencia encontrada ',hardware_code );
-    res.json(result);
-  } catch (err) {
-    res.status(500).json({ message: 'Error al buscar licencias', error: err.message });
+    console.error('💥 Error en createNewLicense:', err.message);
+    res.status(500).json({
+      message: 'Error al crear licencia',
+      error: err.message
+    });
   }
 };
 
 module.exports = {
   getLicenses,
-  getLicense,
-  createNewLicense,
-  updateExistingLicense,
-  deleteExistingLicense,
-  searchLicense
+  searchLicenses,
+  createNewLicense
 };

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const db = require('./config/db');
+const logger = require('./config/logger');
 
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
@@ -16,10 +17,10 @@ app.use(express.json());
 (async () => {
   try {
     const connection = await db.getConnection();
-    console.log('✅ Conexión a la base de datos establecida');
+    logger.info('Conexión a la base de datos establecida');
     connection.release(); // Liberar conexión
   } catch (err) {
-    console.error('❌ Error al conectar a la base de datos:', err.message);
+    logger.error(`Error al conectar a la base de datos: ${err.message}`);
   }
 })();
 
@@ -31,5 +32,5 @@ app.use('/api/products', productRoutes); // ✅ Activamos el módulo de producto
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  logger.info(`Servidor corriendo en http://localhost:${PORT}`);
 });

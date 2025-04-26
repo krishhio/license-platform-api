@@ -79,9 +79,8 @@ async function requestPasswordReset(req, res) {
   }catch (error) {
     res.status(401).json({ message: 'Correo no enviado' });
     logger.error(`❌ Error al enviar correo a ${user.email}: ${error.message}`);
-
   }
-  
+
 }
 
 // POST /reset-password
@@ -90,7 +89,11 @@ async function resetPassword(req, res) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await findUserByUsername(decoded.username);
-    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+    if (!user){
+      logger.info(`Usuario no encontrado: ${user}`);
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    } 
+      
 
     const hashed = await require('bcryptjs').hash(newPassword, 10);
     await require('../config/db').query('UPDATE user SET password_hash = ? WHERE id = ?', [hashed, user.id]);

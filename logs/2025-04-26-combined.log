@@ -1,0 +1,10 @@
+2025-04-26 12:48:20 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 12:48:20 [INFO]: Conexión a la base de datos establecida
+2025-04-26 12:48:45 [INFO]: Usuario Encontrado
+2025-04-26 12:48:45 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 12:48:45 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NjkzMzI1LCJleHAiOjE3NDU3MjIxMjV9.q23l2UfBDP-GhH9R5dSsf2v9Ez1CLQhUt8EcMSQAVS4
+2025-04-26 13:26:15 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 13:26:15 [INFO]: Conexión a la base de datos establecida
+2025-04-26 13:27:55 [INFO]: Usuario Encontrado
+2025-04-26 13:27:56 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 13:27:56 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1Njk1Njc2LCJleHAiOjE3NDU3MjQ0NzZ9.Hb0Nzm5uY4d6LF6IKe3khTq5SkZt--4d-rnTTinWg_A

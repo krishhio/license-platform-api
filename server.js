@@ -7,6 +7,7 @@ const logger = require('./config/logger');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const licenseRoutes = require('./routes/license.routes');
+const hardwareCodeRoutes = require("./routes/hardwarecode.routes");
 const productRoutes = require('./routes/product.routes'); // ✅ Ruta nueva
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/licenses', licenseRoutes);
 app.use('/api/products', productRoutes); // ✅ Activamos el módulo de productos
+app.use("/api/hardware-codes", hardwareCodeRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

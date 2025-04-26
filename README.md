@@ -139,6 +139,112 @@ Algunas rutas requieren token JWT (roles admin). Las rutas públicas como `/sear
 
 ---
 
+
+# 📋 API de Hardware Codes - License Platform
+
+Esta sección documenta los endpoints de la API para administrar los **Hardware Codes** en la plataforma de licenciamiento.
+
+## 🔹 Endpoints disponibles
+
+### 1. Crear Hardware Code
+- **Método:** POST
+- **URL:** `/api/hardware-codes`
+- **Descripción:** Crea un nuevo código de hardware con su licencia asociada y descripción opcional.
+- **Body (JSON):**
+```json
+{
+  "license_id": 1,
+  "code": "PC-00123",
+  "description": "Laptop de ventas 01"
+}
+```
+- **Respuesta Exitosa (201):**
+```json
+{
+  "id": 7,
+  "license_id": 1,
+  "code": "PC-00123",
+  "description": "Laptop de ventas 01"
+}
+```
+
+---
+
+### 2. Listar Hardware Codes
+- **Método:** GET
+- **URL:** `/api/hardware-codes`
+- **Descripción:** Obtiene la lista completa de hardware codes registrados.
+- **Respuesta Exitosa (200):**
+```json
+[
+  {
+    "id": 1,
+    "license_id": 1,
+    "code": "PC-00123",
+    "description": "Laptop de ventas 01"
+  },
+  {
+    "id": 2,
+    "license_id": 2,
+    "code": "PC-00124",
+    "description": "Servidor de Oficina"
+  }
+]
+```
+
+---
+
+### 3. Actualizar Descripción de Hardware Code
+- **Método:** PUT
+- **URL:** `/api/hardware-codes/{id}`
+- **Descripción:** Actualiza únicamente la descripción de un código de hardware.
+- **Body (JSON):**
+```json
+{
+  "description": "Laptop Gerencia Actualizada"
+}
+```
+- **Respuesta Exitosa (200):**
+```json
+{
+  "id": 1,
+  "license_id": 1,
+  "code": "PC-00123",
+  "description": "Laptop Gerencia Actualizada"
+}
+```
+
+---
+
+### 4. Eliminar Hardware Code
+- **Método:** DELETE
+- **URL:** `/api/hardware-codes/{id}`
+- **Descripción:** Elimina un código de hardware por ID.
+- **Respuesta Exitosa (200):**
+```json
+{
+  "message": "Hardware code deleted successfully"
+}
+```
+
+---
+
+## 🔹 Notas Importantes
+- El campo `code` es **único** en la base de datos.
+- `license_id` puede ser nulo si el hardware no ha sido asignado a una licencia todavía.
+- Todos los endpoints requieren autenticación previa mediante JWT.
+
+---
+
+## 📋 Postman Collection
+Pruebas disponibles:
+1. Crear hardware code.
+2. Listar hardware codes.
+3. Actualizar descripción.
+4. Eliminar hardware code.
+
+---
+
 ### 🧪 Pruebas recomendadas (Postman o similar)
 1. ✅ Crear una nueva licencia con productos y hardware.
 2. ✅ Buscar licencia por `license_key` o `hardware_code` sin JWT.

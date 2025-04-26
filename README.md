@@ -5,6 +5,8 @@
 - [Usuarios](#👤-usuarios)
 - [Licencias](#🎫-licencias)
 - [Productos](#📦-productos)
+- [HardwareCode](#💻-hardwarecode)
+
 
 ---
 
@@ -140,7 +142,7 @@ Algunas rutas requieren token JWT (roles admin). Las rutas públicas como `/sear
 ---
 
 
-# 📋 API de Hardware Codes - License Platform
+# 💻 HardwareCodes 
 
 Esta sección documenta los endpoints de la API para administrar los **Hardware Codes** en la plataforma de licenciamiento.
 

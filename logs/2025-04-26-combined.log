@@ -63,3 +63,9 @@
 2025-04-26 17:57:50 [INFO]: Usuario Encontrado
 2025-04-26 17:57:50 [INFO]: Generando Token de sesion de Usuario: 3
 2025-04-26 17:57:50 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzExODcwLCJleHAiOjE3NDU3NDA2NzB9.92gi862dAFCcgcHsQ9PgTXHHx_x55eWA7nYTjvp_iYE
+2025-04-26 22:56:28 [INFO]: Servidor corriendo en http://localhost:4000
+2025-04-26 22:56:28 [INFO]: Conexión a la base de datos establecida
+2025-04-26 22:56:38 [INFO]: Usuario Encontrado
+2025-04-26 22:56:38 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 22:56:38 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzI5Nzk4LCJleHAiOjE3NDU3NTg1OTh9.rJY2cG2ClGRdbMCQyN3aNxj-ZBrm9jrZbQCqe65bBtQ
+2025-04-26 22:57:49 [INFO]: Obteniendo Licencias: : [object Object],[object Object],[object Object],[object Object],[object Object],[object Object]

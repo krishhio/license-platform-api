@@ -285,3 +285,174 @@ curl -X GET http://localhost:5000/api/products \
 ### 🔹 Eliminar producto
 - **DELETE** `/api/products/:id`
 - **Requiere rol:** `admin`
+
+
+# 📑 Invoice API Documentation
+
+## 📦 Endpoints
+
+### ➡️ 1. Crear nueva factura
+
+- **URL:** `POST /api/invoices`
+- **Auth:** 🔒 Requiere token
+- **Body (JSON):**
+
+```json
+{
+  "reference": "INV-000123",
+  "amount": 500.00,
+  "client_name": "Cristian Gomez"
+}
+```
+
+- **Respuesta exitosa (201):**
+
+```json
+{
+  "id": 1,
+  "reference": "INV-000123",
+  "amount": 500.0,
+  "status": "pending",
+  "client_name": "Cristian Gomez"
+}
+```
+
+---
+
+### ➡️ 2. Listar todas las facturas
+
+- **URL:** `GET /api/invoices`
+- **Auth:** 🔒 Requiere token
+- **Respuesta exitosa (200):**
+
+```json
+[
+  {
+    "id": 1,
+    "reference": "INV-000123",
+    "amount": 500.0,
+    "status": "pending",
+    "client_name": "Cristian Gomez",
+    "created_at": "2025-04-27T00:00:00.000Z",
+    "updated_at": "2025-04-27T00:00:00.000Z"
+  }
+]
+```
+
+---
+
+### ➡️ 3. Obtener factura específica
+
+- **URL:** `GET /api/invoices/:id`
+- **Auth:** 🔒 Requiere token
+- **Ejemplo:** `GET /api/invoices/1`
+
+- **Respuesta exitosa (200):**
+
+```json
+{
+  "id": 1,
+  "reference": "INV-000123",
+  "amount": 500.0,
+  "status": "pending",
+  "client_name": "Cristian Gomez",
+  "created_at": "2025-04-27T00:00:00.000Z",
+  "updated_at": "2025-04-27T00:00:00.000Z"
+}
+```
+
+---
+
+### ➡️ 4. Actualizar estado de factura
+
+- **URL:** `PUT /api/invoices/:id`
+- **Auth:** 🔒 Requiere token
+- **Body (JSON):**
+
+```json
+{
+  "status": "paid"
+}
+```
+
+- **Notas:**
+  - Estado permitido: `pending`, `paid`, `canceled`
+  - No se puede actualizar a cualquier otro valor.
+
+- **Respuesta exitosa (200):**
+
+```json
+{
+  "message": "Invoice status updated successfully"
+}
+```
+
+---
+
+### ➡️ 5. Eliminar factura
+
+- **URL:** `DELETE /api/invoices/:id`
+- **Auth:** 🔒 Requiere token
+
+- **Notas:**
+  - ❌ No se puede eliminar una factura que esté en estado `paid`.
+  - ✅ Solo se puede eliminar si el estado es `pending` o `canceled`.
+
+- **Respuesta exitosa (200):**
+
+```json
+{
+  "message": "Invoice deleted successfully"
+}
+```
+
+---
+
+# 📋 Reglas de Validación
+
+| Campo | Requerido | Validación |
+|:------|:----------|:-----------|
+| `reference` | ✅ | No puede ser vacío |
+| `amount` | ✅ | Debe ser un número mayor a 0 |
+| `client_name` | ❌ | Opcional |
+| `status` | ✅ | Sólo permitido: `pending`, `paid`, `canceled` |
+
+---
+
+# 📋 Ejemplos de Postman
+
+✅ Crear nueva factura:
+
+- `POST` → `http://localhost:3000/api/invoices`
+- Headers: `Authorization: Bearer <token>`
+- Body (raw JSON):
+
+```json
+{
+  "reference": "INV-000123",
+  "amount": 500.00,
+  "client_name": "Cristian Gomez"
+}
+```
+
+✅ Listar facturas:
+
+- `GET` → `http://localhost:3000/api/invoices`
+- Headers: `Authorization: Bearer <token>`
+
+✅ Actualizar factura a pagada:
+
+- `PUT` → `http://localhost:3000/api/invoices/1`
+- Headers: `Authorization: Bearer <token>`
+- Body (raw JSON):
+
+```json
+{
+  "status": "paid"
+}
+```
+
+✅ Eliminar factura (si es pending):
+
+- `DELETE` → `http://localhost:3000/api/invoices/1`
+- Headers: `Authorization: Bearer <token>`

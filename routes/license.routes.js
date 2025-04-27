@@ -1,27 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const {
-  getLicenses,
-  searchLicenses,
-  getLicenseById,
-  updateLicenseById,
-  createNewLicense
-} = require('../controllers/license.controller');
+const licenseController = require('../controllers/license.controller');
 const { verifyToken, isAdmin } = require('../middlewares/auth.middleware');
 
-// Obtener todas las licencias (admin)
-router.get('/', verifyToken, isAdmin, getLicenses);
+// Crear licencia
+router.post('/', verifyToken, licenseController.createNewLicense);
 
-// Buscar por license_key o hardware_code
-router.get('/search', verifyToken, searchLicenses);
+// Listar todas las licencias
+router.get('/', verifyToken, licenseController.listLicenses);
 
-// Crear nueva licencia (solo admin)
-router.post('/', verifyToken, isAdmin, createNewLicense);
+// Buscar licencia por ID
+router.get('/:id', verifyToken, licenseController.getLicense);
 
-// Obtener licencia por ID
-router.get("/:id", verifyToken, getLicenseById);
-
-// Actualizar licencia por ID
-router.put("/:id", verifyToken, updateLicenseById);
+// Buscar licencias por filtros (license_key, type, status)
+router.get('/search', verifyToken, licenseController.searchLicensesController);
 
 module.exports = router;
+
+

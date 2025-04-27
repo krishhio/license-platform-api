@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const hardwareCodeController = require('../controllers/hardware_code.controller');
-const { verifyToken } = require('../middlewares/authJwt'); // Protegemos con token si quieres
+const { verifyToken, isAdmin } = require('../middlewares/auth.middleware');
 
 // Crear hardware code
 router.post('/', verifyToken, hardwareCodeController.createNewHardwareCode);

@@ -7,7 +7,7 @@ const logger = require('./config/logger');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const licenseRoutes = require('./routes/license.routes');
-const hardwareCodeRoutes = require("./routes/hardwarecode.routes");
+const hardwareCodeRoutes = require("./routes/hardware_code.routes");
 const productRoutes = require('./routes/product.routes'); // ✅ Ruta nueva
 
 const app = express();

@@ -30,7 +30,7 @@ const findLicensesByHardwareOrLicenseKey = async ({ hardware_code, license_key }
     FROM license l
     LEFT JOIN license_product lp ON lp.license_id = l.id
     LEFT JOIN product p ON p.id = lp.product_id
-    LEFT JOIN license_hardware_code lhc ON lhc.license_id = l.id
+    LEFT JOIN license_hardware lhc ON lhc.license_id = l.id
     LEFT JOIN hardware_code hc ON hc.id = lhc.hardware_code_id
   `;
 
@@ -88,10 +88,67 @@ const assignHardwareToLicense = async (license_id, hardware_codes = []) => {
   }
 };
 
+// Buscar licencia por ID
+const findLicenseById = async (id) => {
+  const [rows] = await db.query(`
+    SELECT 
+      l.id AS license_id,
+      l.license_key,
+      l.type,
+      l.expiry_date,
+      GROUP_CONCAT(DISTINCT p.name) AS products,
+      GROUP_CONCAT(DISTINCT hc.code) AS hardware_codes
+    FROM license l
+    LEFT JOIN license_product lp ON lp.license_id = l.id
+    LEFT JOIN product p ON p.id = lp.product_id
+    LEFT JOIN license_hardware lhc ON lhc.license_id = l.id
+    LEFT JOIN hardware_code hc ON hc.id = lhc.hardware_code_id
+    WHERE l.id = ?
+    GROUP BY l.id
+  `, [id]);
+  
+  return rows.length ? rows[0] : null;
+};
+
+// Actualizar licencia por ID
+const updateLicense = async (id, fieldsToUpdate) => {
+  const allowedFields = ['license_key', 'type', 'expiry_date', 'invoice_id'];
+
+  // Filtrar solo los campos permitidos
+  const setClause = [];
+  const values = [];
+
+  for (const field of allowedFields) {
+    if (fieldsToUpdate[field] !== undefined) {
+      setClause.push(`${field} = ?`);
+      values.push(fieldsToUpdate[field]);
+    }
+  }
+
+  if (setClause.length === 0) {
+    throw new Error('No valid fields to update');
+  }
+
+  values.push(id); // ID para el WHERE
+
+  const query = `
+    UPDATE license
+    SET ${setClause.join(', ')}
+    WHERE id = ?
+  `;
+
+  const [result] = await db.query(query, values);
+
+  return result.affectedRows > 0;
+};
+
 module.exports = {
   getAllLicenses,
   findLicensesByHardwareOrLicenseKey,
   createLicense,
   assignProductsToLicense,
-  assignHardwareToLicense
+  assignHardwareToLicense,
+  findLicenseById,
+  updateLicense   // 🚀 nuevo export
 };
+

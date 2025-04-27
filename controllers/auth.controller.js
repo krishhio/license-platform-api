@@ -58,6 +58,7 @@ async function register(req, res) {
 async function requestPasswordReset(req, res) {
   const { email } = req.body;
   const user = await findUserByEmail(email);
+  logger.info(`Reiniciar password de ${email}`)
   if (!user) {
     logger.error(`Correo no encontrado`);
     return res.status(404).json({ message: 'Correo no encontrado' });
@@ -66,7 +67,7 @@ async function requestPasswordReset(req, res) {
   const token = generateToken(user);
   logger.info(`Generando Token de usuario ${user}`);
   logger.info(`Token de usuario ${user}: ${token}`);
-  const resetLink = `http://localhost:3000/reset-password?token=${token}`;
+  const resetLink = `http://localhost:5000/reset-password?token=${token}`;
   try{
     await transporter.sendMail({
       from: `"Plataforma de Licenciamiento MacaoCloud " <${process.env.MAIL_USER}>`,
@@ -89,16 +90,17 @@ async function resetPassword(req, res) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await findUserByUsername(decoded.username);
+    logger.info(`Usuario : ${user}`);
     if (!user){
-      logger.info(`Usuario no encontrado: ${user}`);
+      logger.error(`Usuario no encontrado: ${user}`);
       return res.status(404).json({ message: 'Usuario no encontrado' });
     } 
-      
-
     const hashed = await require('bcryptjs').hash(newPassword, 10);
     await require('../config/db').query('UPDATE user SET password_hash = ? WHERE id = ?', [hashed, user.id]);
+    logger.info(`Password Actualizado`);
     res.json({ message: 'Contraseña actualizada' });
   } catch (err) {
+    logger.error(`Token no valido o expirado`);
     res.status(401).json({ message: 'Token inválido o expirado' });
   }
 }

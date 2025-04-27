@@ -3,6 +3,8 @@ const router = express.Router();
 const {
   getLicenses,
   searchLicenses,
+  getLicenseById,
+  updateLicenseById,
   createNewLicense
 } = require('../controllers/license.controller');
 const { verifyToken, isAdmin } = require('../middlewares/auth.middleware');
@@ -15,5 +17,11 @@ router.get('/search', verifyToken, searchLicenses);
 
 // Crear nueva licencia (solo admin)
 router.post('/', verifyToken, isAdmin, createNewLicense);
+
+// Obtener licencia por ID
+router.get("/:id", verifyToken, getLicenseById);
+
+// Actualizar licencia por ID
+router.put("/:id", verifyToken, updateLicenseById);
 
 module.exports = router;

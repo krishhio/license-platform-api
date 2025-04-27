@@ -10,3 +10,56 @@
 2025-04-26 13:27:56 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1Njk1Njc2LCJleHAiOjE3NDU3MjQ0NzZ9.Hb0Nzm5uY4d6LF6IKe3khTq5SkZt--4d-rnTTinWg_A
 2025-04-26 13:41:47 [INFO]: Servidor corriendo en http://localhost:5000
 2025-04-26 13:41:47 [INFO]: Conexión a la base de datos establecida
+2025-04-26 13:56:31 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 13:56:31 [INFO]: Conexión a la base de datos establecida
+2025-04-26 14:28:51 [INFO]: Usuario Encontrado
+2025-04-26 14:28:51 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 14:28:51 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1Njk5MzMxLCJleHAiOjE3NDU3MjgxMzF9.ESshd3bfdtP_Ww7hvJuKR043uA8bWilcf6ZuxI2C9is
+2025-04-26 14:43:24 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 14:43:24 [INFO]: Conexión a la base de datos establecida
+2025-04-26 14:43:27 [INFO]: La informacion de hardware_code es: LIC-ABC-2025 y la de license_key es: undefined
+2025-04-26 14:43:27 [ERROR]: Error al buscar licencias: Table 'license_platform.license_hardware_code' doesn't exist
+2025-04-26 14:44:33 [INFO]: La informacion de hardware_code es: LIC-ABC-2025 y la de license_key es: undefined
+2025-04-26 14:44:33 [ERROR]: Error al buscar licencias: Table 'license_platform.license_hardware_code' doesn't exist
+2025-04-26 14:44:41 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 14:44:41 [INFO]: Conexión a la base de datos establecida
+2025-04-26 14:44:45 [INFO]: La informacion de hardware_code es: LIC-ABC-2025 y la de license_key es: undefined
+2025-04-26 14:44:45 [INFO]: Licencias Encontrada 
+2025-04-26 14:45:19 [INFO]: La informacion de hardware_code es: HW-ABC-001 y la de license_key es: undefined
+2025-04-26 14:45:19 [INFO]: Licencias Encontrada 
+2025-04-26 14:46:02 [INFO]: La informacion de hardware_code es: undefined y la de license_key es: LIC-ABC-2025
+2025-04-26 14:46:02 [INFO]: Licencias Encontrada 
+2025-04-26 14:46:24 [INFO]: La informacion de hardware_code es: 1 y la de license_key es: LIC-ABC-2025
+2025-04-26 14:46:24 [INFO]: Licencias Encontrada 
+2025-04-26 14:46:38 [INFO]: La informacion de hardware_code es: 1 y la de license_key es: 
+2025-04-26 14:46:38 [INFO]: Licencias Encontrada 
+2025-04-26 14:47:24 [INFO]: La informacion de hardware_code es: 1 y la de license_key es: LIC-ABC-2025
+2025-04-26 14:47:24 [INFO]: Licencias Encontrada 
+2025-04-26 14:47:32 [INFO]: La informacion de hardware_code es: undefined y la de license_key es: LIC-ABC-2025
+2025-04-26 14:47:32 [INFO]: Licencias Encontrada 
+2025-04-26 14:48:33 [INFO]: Usuario Encontrado
+2025-04-26 14:48:33 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 14:48:33 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzAwNTEzLCJleHAiOjE3NDU3MjkzMTN9.3kxfAVy-6ZW2S5K-OfG1VUNZUjzAeRz_Zl35iWAcpyY
+2025-04-26 16:54:11 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 16:54:11 [INFO]: Conexión a la base de datos establecida
+2025-04-26 17:06:29 [INFO]: Usuario Encontrado
+2025-04-26 17:06:29 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 17:06:29 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzA4Nzg5LCJleHAiOjE3NDU3Mzc1ODl9.JEBdEsRTV0cS4g16e8sTJJV7weQzzbvYMQg8_pDb6Fw
+2025-04-26 17:07:17 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 17:07:17 [INFO]: Conexión a la base de datos establecida
+2025-04-26 17:25:19 [INFO]: Usuario Encontrado
+2025-04-26 17:25:19 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 17:25:19 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzA5OTE5LCJleHAiOjE3NDU3Mzg3MTl9.LTLKDCw5mSaDo0266crXNvow_Y1z3HY5CU-JShLC610
+2025-04-26 17:26:33 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 17:26:33 [INFO]: Conexión a la base de datos establecida
+2025-04-26 17:26:37 [ERROR]: Obteniendo Licencias: : [object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+2025-04-26 17:43:59 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 17:43:59 [INFO]: Conexión a la base de datos establecida
+2025-04-26 17:45:12 [INFO]: Usuario Encontrado
+2025-04-26 17:45:12 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 17:45:12 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzExMTEyLCJleHAiOjE3NDU3Mzk5MTJ9.FDto6W7j0qIWM5oE-9-PjeEXa8n9PylivSAZD0rCQCs
+2025-04-26 17:57:42 [INFO]: Servidor corriendo en http://localhost:5000
+2025-04-26 17:57:42 [INFO]: Conexión a la base de datos establecida
+2025-04-26 17:57:50 [INFO]: Usuario Encontrado
+2025-04-26 17:57:50 [INFO]: Generando Token de sesion de Usuario: 3
+2025-04-26 17:57:50 [INFO]: Token Generado: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ1NzExODcwLCJleHAiOjE3NDU3NDA2NzB9.92gi862dAFCcgcHsQ9PgTXHHx_x55eWA7nYTjvp_iYE

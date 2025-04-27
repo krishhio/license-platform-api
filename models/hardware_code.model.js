@@ -38,9 +38,16 @@ const deleteHardwareCode = async (id) => {
   return result.affectedRows > 0;
 };
 
+// Buscar hardware code por código
+const findHardwareCodeByCode = async (code) => {
+  const [rows] = await db.query(`SELECT * FROM hardware_code WHERE code = ?`, [code]);
+  return rows.length ? rows[0] : null;
+};
+
 module.exports = {
   createHardwareCode,
   getAllHardwareCodes,
   updateHardwareCodeDescription,
+  findHardwareCodeByCode,
   deleteHardwareCode
 };
